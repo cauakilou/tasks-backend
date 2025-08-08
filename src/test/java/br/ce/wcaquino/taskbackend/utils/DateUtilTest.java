@@ -1,11 +1,11 @@
-package testes;
+package br.ce.wcaquino.taskbackend.utils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import static br.ce.wcaquino.taskbackend.utils.DateUtils.isEqualOrFutureDate;
 
-class DateUtilIT {
+class DateUtilTest {
 
     @Test
     void deveRetornarTrueParaFuturas(){
