@@ -27,15 +27,7 @@ pipeline {
 
         stage('Deploy Backend') {
             steps {
-                echo 'A implantar a aplicação no Tomcat...'
-                deploy adapters: [
-                    tomcat9(
-                        credentialsId: 'TomcatLogin', 
-                        url: 'http://127.0.0.1:8001', 
-                        path: '/tasks-backend'
-                    )
-                ], 
-                war: 'target/tasks-backend.war'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target\\tasks-backend.war'
             }
         }
     }
