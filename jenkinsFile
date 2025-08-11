@@ -33,7 +33,7 @@ pipeline {
         stage('API test'){
             steps{
                 dir('api-test'){
-                    git 'https://github.com/cauakilou/tasks-api-test.git'
+                    git branch: 'main', url: 'https://github.com/cauakilou/tasks-api-test.git'
                     bat 'mvn test'
                 }
             }
