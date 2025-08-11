@@ -31,7 +31,7 @@ pipeline {
                 deploy adapters: [
                     tomcat9(
                         credentialsId: 'TomcatLogin', 
-                        url: 'http://localhost:8001/',
+                        url: 'http://localhost:8001', 
                         path: '/tasks-backend'
                     )
                 ], 
