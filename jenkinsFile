@@ -24,16 +24,16 @@ pipeline {
             }
         }
         
-        // --- ETAPA CORRIGIDA ---
-        stage('Quality Gate'){
-            steps{
-                // Opcional: espera 5 segundos para o SonarQube começar a processar.
-                sleep(5)
+        // ... (etapas anteriores do seu pipeline, como Build & Test e SonarQube Analysis)
+
+        stage('Quality Gate') {
+            steps {
+                echo 'A aguardar o resultado da análise do SonarQube...'
                 
-                // A forma correta: envolva o waitForQualityGate com o 'withSonarQubeEnv'.
-                // Use o nome da sua configuração do SonarQube no Jenkins (ex: 'SONAR_LOCAL').
+                // A forma correta: envolva o timeout e o waitForQualityGate
+                // com 'withSonarQubeEnv'. Use o nome da sua configuração do SonarQube no Jenkins.
                 withSonarQubeEnv('SONAR_LOCAL') {
-                    timeout(time: 1, unit: 'MINUTES'){
+                    timeout(time: 1, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
                     }
                 }
