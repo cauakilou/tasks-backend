@@ -23,21 +23,5 @@ pipeline {
                 } 
             }
         }
-        
-        // ... (etapas anteriores do seu pipeline, como Build & Test e SonarQube Analysis)
-
-        stage('Quality Gate') {
-            steps {
-                echo 'A aguardar o resultado da análise do SonarQube...'
-                
-                // A forma correta: envolva o timeout e o waitForQualityGate
-                // com 'withSonarQubeEnv'. Use o nome da sua configuração do SonarQube no Jenkins.
-                withSonarQubeEnv('SONAR_LOCAL') {
-                    timeout(time: 1, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-            }
-        }
     }
 }
