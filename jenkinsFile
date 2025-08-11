@@ -12,24 +12,32 @@ pipeline {
                 bat 'mvn test'
             }
         }
-        stage('solar analylis'){
+        stage('solar analysis'){
             environment{
                 scannerHome = tool 'SONAR_SCANNER'
             }
             steps{
                 withSonarQubeEnv('SONAR_LOCAL'){
+                    // Corrigi os espaços em falta nos parâmetros -D
                     bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_ba4fd417e0e23e7cb03ab19457b80979be343fe8 -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**Application.java"
                 } 
             }
         }
+        
+        // --- ETAPA CORRIGIDA ---
         stage('Quality Gate'){
             steps{
+                // Opcional: espera 5 segundos para o SonarQube começar a processar.
                 sleep(5)
-                timeout(time: 1, unit: 'MINUTES'){
-                    waitForQualityGate abortPipeline: true
+                
+                // A forma correta: envolva o waitForQualityGate com o 'withSonarQubeEnv'.
+                // Use o nome da sua configuração do SonarQube no Jenkins (ex: 'SONAR_LOCAL').
+                withSonarQubeEnv('SONAR_LOCAL') {
+                    timeout(time: 1, unit: 'MINUTES'){
+                        waitForQualityGate abortPipeline: true
+                    }
                 }
             }
         }
     }
 }
-
