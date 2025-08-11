@@ -6,8 +6,7 @@ pipeline {
         stage('just test') {
             steps {
                 // 2. Seus comandos continuam aqui
-                bat 'echo deu certo'
-                bat 'echo tentei'
+                bat 'mvn clean package -DskipTests=true'
             }
         }
     }
