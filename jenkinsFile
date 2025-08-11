@@ -38,5 +38,13 @@ pipeline {
                 }
             }
         }
+        stage('deploy Front'){
+                    steps{
+                        dir('front'){
+                            git branch: 'master', url: 'https://github.com/cauakilou/tasks-frontend'
+                            deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-frontend   ', war: 'target\\tasks-frontend.war'
+                        }
+                    }
+                }
     }
 }
