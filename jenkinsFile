@@ -1,11 +1,13 @@
-pipeline{
-    agent any{
-        stages{
-            stage('just test'){
-                steps{
-                    bat 'echo deu certo'
-                    bat 'tentei'
-                }
+pipeline {
+    // 1. 'agent' e 'stages' estão agora ao mesmo nível, diretamente dentro de 'pipeline'
+    agent any
+
+    stages {
+        stage('just test') {
+            steps {
+                // 2. Seus comandos continuam aqui
+                bat 'echo deu certo'
+                bat 'tentei'
             }
         }
     }
