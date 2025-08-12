@@ -42,6 +42,7 @@ pipeline {
                     steps{
                         dir('front'){
                             git branch: 'master', url: 'https://github.com/cauakilou/tasks-frontend'
+                            sh 'mvn clean package'
                             deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-frontend   ', war: 'target\\tasks-frontend.war'
                         }
                     }
